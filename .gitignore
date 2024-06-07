@@ -1,0 +1,16 @@
+# ignore separate files
+*.v.bak
+*.sv.bak
+
+# ignore unnesesary folders
+project plan/
+db/
+greybox_tmp/
+incremental_db/
+measurements/
+output_files/
+pytest/
+simulation/
+
+# ignore powerpoint file where I draw the images
+/md_images/draw_images.pptx
