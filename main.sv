@@ -30,8 +30,9 @@ logic        pll_locked;
 logic        pll_locked_pulse;
 logic [12:0] mem_address;
 logic [7:0]  mem_data;
-logic [10:0] x_pixel;
-logic [10:0] y_pixel;
+logic [10:0] pixel_x;
+logic [10:0] pixel_y;
+logic [18:0] pixel_counter;
 
 // Input signal procesing
 always @(posedge clk_40) begin
@@ -92,7 +93,6 @@ controller controller_m (
 memory memory_m (
   .clock (clk_40),
   .reset (reset),
-  .pixel_sync (pixel_sync),
   
   // Write data in txt memory
   .write_data (mem_data),
@@ -100,8 +100,9 @@ memory memory_m (
   .write_enable (write_enable),
   
   // Pixel sync
-  .x_pixel(x_pixel),
-  .y_pixel(y_pixel),
+  .pixel_x(pixel_x),
+  .pixel_y(pixel_y),
+  .video_on(video_on),
   
   // Output pixels
   .color_r (color_r),
@@ -119,8 +120,8 @@ vga_sync_gen vga_sync_gen_m(
   .video_on (video_on),
   
   // Memory outputs
-  .x_pixel (x_pixel),
-  .y_pixel (y_pixel)
+  .pixel_x (pixel_x),
+  .pixel_y (pixel_y)
 );
 
 // Output video signal in active time of the display

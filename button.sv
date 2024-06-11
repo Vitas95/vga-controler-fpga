@@ -1,6 +1,6 @@
 // Button processing module. This module
 // process the input signal from the button to avoid
-// the contact bouncing. 
+// switch bouncing. 
 
 module button(
   input clock,

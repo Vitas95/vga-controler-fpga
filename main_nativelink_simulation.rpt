@@ -18,5 +18,6 @@ Sim dir               :  simulation\modelsim
 
 Info: Starting NativeLink simulation with ModelSim software
 Sourced NativeLink script c:/intelfpga_lite/22.1std/quartus/common/tcl/internal/nativelink/modelsim.tcl
+Warning: File main_run_msim_rtl_verilog.do already exists - backing up current file as main_run_msim_rtl_verilog.do.bak9
 Info: Spawning ModelSim Simulation software 
 Info: NativeLink simulation flow was successful

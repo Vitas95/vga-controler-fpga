@@ -10,12 +10,8 @@ module vga_sync_gen(
   output video_on,
   
   // Memory outputs
-  output [10:0] x_pixel, y_pixel
+  output [10:0] pixel_x, pixel_y
 );
-
-assign vsync      = 0;
-assign hsync      = 0;
-assign pixel_sync = 0;
 
 // Constants for VGA synchronisation 
 localparam H_DISPLAY = 800;
@@ -37,21 +33,22 @@ localparam V_AFTER_SYNC  = V_DISPLAY + V_FRONT + V_SYNC;
 // Registers
 logic [10:0] h_counter, v_counter;
 
-// Count vertical and horysontal pixels
+// Vertical and horysontal counters
 always @(posedge clock) begin
   if (reset) begin
-    h_counter <= 0;
-    v_counter <= 0;
+    h_counter <= '0;
+    v_counter <= '0;
   end else begin
-
     if (h_counter == H_TOTAL) begin
-      h_counter <= 0;
-      
-      if (v_counter == V_TOTAL) v_counter <= 0;
-      else v_counter <= v_counter + 1'b1;
-    
-    end else h_counter <= h_counter + 1'b1;
- 
+      h_counter <= '0;
+      if (v_counter == V_TOTAL) begin
+        v_counter <= '0;
+      end else begin
+        v_counter <= v_counter + 1'b1;
+      end
+    end else begin
+      h_counter <= h_counter + 1'b1;
+    end
   end
 end
 
@@ -62,9 +59,9 @@ assign v_sync = ~((v_counter <= V_BEFORE_SYNC) | (v_counter >= V_AFTER_SYNC));
 // Region where video is displayed
 assign video_on = (h_counter < H_DISPLAY) & (v_counter < V_DISPLAY);
 
-// Counters to adress the memory
-assign x_pixel = video_on ? h_counter : 11'b0;
-assign y_pixel = video_on ? v_counter : 11'b0;
+// Counters to the memory
+assign pixel_x = video_on ? h_counter : 11'b0;
+assign pixel_y = video_on ? v_counter : 11'b0;
 
 endmodule
 
