@@ -1,3 +1,11 @@
+"""
+This script creates a file with an image for the FPGA.
+First of all, the resolution of the image has been changed 
+to one bit for all three colors. Then the image is saved in
+the.txt file in binary format. The first column is red, the
+second is green, and the last is blue.
+"""
+
 import cv2
 import numpy as np
 import argparse
@@ -13,7 +21,7 @@ def img_to_mem(img_path, path_write, dac_resolution):
     r = img[:, :, 2]
 
     if dac_resolution != [8, 8, 8]:
-        # Change image depth
+        # Change the image depth
         EightBitsToNBits_V = np.vectorize(EightBitsToNBits)
         b = EightBitsToNBits_V(b, dac_resolution[0])
         g = EightBitsToNBits_V(g, dac_resolution[1])
@@ -34,7 +42,7 @@ def img_to_mem(img_path, path_write, dac_resolution):
     g = g.reshape(-1, 1)
     r = r.reshape(-1, 1)
 
-    # Save data
+    # Save the data
     text_data = ""
     for i in range(b.shape[0]):
         text_data = (
@@ -45,8 +53,8 @@ def img_to_mem(img_path, path_write, dac_resolution):
             + "\n"
         )
 
-    # Save file
-    file_name_write = "MemoryFile.txt"
+    # Save the file
+    file_name_write = "ImageMemoryFile.txt"
     if path_write != "":
         file_name_write = path_write + "/" + file_name_write
 

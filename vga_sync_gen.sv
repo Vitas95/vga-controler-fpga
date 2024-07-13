@@ -1,4 +1,9 @@
-// VGA synchronisation module for 800x600 screen format.
+// VGA synchronization module for 800x600 screen resolution. 
+// The generator forms a signal for vertical and horizontal 
+// synchronization. Also generates video control signal allow 
+// to output video signal in right moment of time. Signals 
+// pixel_x and pixel_y help to provide reads from memory 
+// modules pixel by pixel.
 
 module vga_sync_gen(
   input clock,
